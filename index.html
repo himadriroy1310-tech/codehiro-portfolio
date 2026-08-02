@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeHiro — Freelance Frontend Developer</title>
+<meta name="description" content="Freelance frontend developer building fast, conversion-focused websites for small businesses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #000000;
+    --navy-2: #0A0A0F;
+    --card: #0F1016;
+    --border: #1E202B;
+    --border-strong: #2A2D3D;
+    --text: #E8E8E8;
+    --text-dim: #9A9CAE;
+    --text-faint: #64667A;
+    --amber: #5170FF;
+    --amber-dim: #191E3D;
+    --teal: #8DA0FF;
+    --teal-dim: #14172E;
+    --radius: 10px;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3{ font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.02em; color: #fff; }
+  .mono{ font-family: 'JetBrains Mono', monospace; }
+  a{ color: inherit; text-decoration: none; }
+  img{ max-width: 100%; display: block; }
+
+  .wrap{ max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--teal);
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .eyebrow::before{
+    content: "";
+    width: 18px;
+    height: 1px;
+    background: var(--teal);
+  }
+
+  /* Buttons */
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+  }
+  .btn:active{ transform: translateY(-2px) scale(0.98); }
+  .btn-primary{ background: var(--amber); color: #F5F6FF; }
+  .btn-primary:active{ background: #6C85FF; box-shadow: 0 8px 24px rgba(81,112,255,0.35); }
+  .btn-ghost{ background: transparent; color: var(--text); border-color: var(--border-strong); }
+  .btn-ghost:active{ border-color: var(--teal); color: var(--teal); background: rgba(81,112,255,0.08); }
+  @media (hover: hover){
+    .btn-primary:hover{ background: #6C85FF; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(81,112,255,0.35); }
+    .btn-ghost:hover{ border-color: var(--teal); color: var(--teal); background: rgba(81,112,255,0.08); transform: translateY(-2px); }
+  }
+
+  /* Nav */
+  header{
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11,15,26,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0;
+  }
+  .logo{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: #fff; transition: opacity 0.15s ease; }
+  .logo:hover{ opacity: 0.8; }
+  .logo span{ color: var(--amber); }
+  .nav-links{ display: flex; align-items: center; gap: 32px; }
+  .nav-links a{ font-size: 14px; color: var(--text-dim); transition: color 0.15s ease; position: relative; padding-bottom: 4px; }
+  .nav-links a::after{
+    content: "";
+    position: absolute; left: 0; bottom: 0;
+    width: 0; height: 1px;
+    background: var(--amber);
+    transition: width 0.2s ease;
+  }
+  .nav-links a:hover{ color: #fff; }
+  .nav-links a:hover::after{ width: 100%; }
+  .nav-cta{ display: flex; align-items: center; gap: 24px; }
+  .nav-toggle{
+    display: none;
+    background: none;
+    border: 1px solid var(--border-strong);
+    border-radius: 7px;
+    width: 38px; height: 38px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+  }
+  .burger, .burger::before, .burger::after{
+    content: "";
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease;
+  }
+  .burger{ position: relative; }
+  .burger::before{ position: absolute; top: -6px; left: 0; }
+  .burger::after{ position: absolute; top: 6px; left: 0; }
+  .nav-toggle[aria-expanded="true"] .burger{ background: transparent; }
+  .nav-toggle[aria-expanded="true"] .burger::before{ top: 0; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .burger::after{ top: 0; transform: rotate(-45deg); }
+
+  .mobile-menu{
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 0;
+    overflow: hidden;
+    border-top: 1px solid transparent;
+    transition: max-height 0.25s ease;
+  }
+  .mobile-menu.open{
+    max-height: 400px;
+    border-top-color: var(--border);
+    padding: 14px 0 20px;
+  }
+  .mobile-menu a{
+    padding: 12px 4px;
+    font-size: 15px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu a:hover{ color: #fff; }
+  .mobile-menu-ctas{
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .mobile-menu-ctas .btn{ flex: 1; border-bottom: none; padding: 12px 22px; }
+  .mobile-menu-ctas .btn-primary{ color: #F5F6FF; }
+
+  /* Hero */
+  .hero{ padding: 88px 0 64px; }
+  .hero-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .hero h1{ font-size: 44px; line-height: 1.12; margin-bottom: 18px; }
+  .hero h1 .accent{ color: var(--amber); }
+  .hero p.sub{ font-size: 16px; color: var(--text-dim); max-width: 440px; margin-bottom: 32px; }
+  .hero-ctas{ display: flex; gap: 14px; margin-bottom: 36px; }
+  .hero-trust{ display: flex; gap: 24px; font-size: 13px; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; }
+  .hero-trust span{ color: var(--teal); }
+
+  /* Browser mockup */
+  .mockup-wrap{ position: relative; }
+  .mockup-glow{
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    bottom: -24px;
+    height: 70px;
+    background: radial-gradient(ellipse at center, rgba(81,112,255,0.55) 0%, rgba(81,112,255,0.25) 45%, transparent 75%);
+    filter: blur(28px);
+    z-index: 0;
+    animation: glowPulse 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes glowPulse{
+    0%, 100%{ opacity: 0.55; transform: scaleX(0.92) translateY(0); }
+    50%{ opacity: 0.9; transform: scaleX(1.05) translateY(6px); }
+  }
+  .mockup{
+    position: relative;
+    z-index: 1;
+    background: var(--card);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,0.6),
+      0 15px 30px -10px rgba(81,112,255,0.18),
+      0 0 0 1px rgba(255,255,255,0.02);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: float 5s ease-in-out infinite;
+  }
+  .mockup:hover{
+    animation-play-state: paused;
+    transform: translateY(-6px);
+    box-shadow:
+      0 40px 70px -20px rgba(0,0,0,0.65),
+      0 20px 40px -10px rgba(81,112,255,0.28),
+      0 0 0 1px rgba(255,255,255,0.03);
+  }
+  .mockup-wrap:hover .mockup-glow{ animation-play-state: paused; opacity: 0.9; }
+  @keyframes float{
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(-10px); }
+  }
+  .mockup-bar{
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--navy-2);
+  }
+  .dot{ width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red{ background: #E24B4A; }
+  .dot.amber{ background: #E8B339; }
+  .dot.teal{ background: #3FBF6A; }
+  .mockup-url{
+    flex: 1;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-faint);
+    text-align: center;
+  }
+  .mockup-body{ padding: 32px 28px; }
+  .mockup-nav{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+  .mockup-brand{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.06em; color: #fff; }
+  .mockup-links{ display: flex; gap: 18px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); }
+  .mockup-h1{ font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 600; color: #fff; margin-bottom: 14px; }
+  .mockup-p{ font-size: 13px; color: var(--text-dim); margin-bottom: 24px; max-width: 300px; }
+  .mockup-btn{
+    display: inline-block;
+    background: var(--amber);
+    color: #F5F6FF;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .mockup-btn:hover{ background: #6C85FF; transform: translateY(-1px); }
+  .mockup-btn.is-tapped{ background: #6C85FF; transform: translateY(-1px); }
+  .mockup-note{
+    margin-top: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-faint);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mockup-note .emphasis{ color: var(--teal); }
+  .note-tap{ display: none; }
+  @media (hover: none){
+    .note-hover{ display: none; }
+    .note-tap{ display: inline; }
+  }
+
+  /* Section shared */
+  section{ padding: 80px 0; }
+  .section-head{ margin-bottom: 44px; }
+  .section-head h2{ font-size: 30px; }
+
+  /* Services */
+  .grid-4{ display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+  .card{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px 22px;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .card:hover{
+    border-color: var(--amber);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    background: #131420;
+  }
+  .card-icon{
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--teal-dim);
+    color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    margin-bottom: 18px;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover .card-icon{
+    background: var(--amber);
+    color: #F5F6FF;
+    transform: scale(1.08);
+  }
+  .card h3{ font-size: 16px; margin-bottom: 8px; }
+  .card p{ font-size: 13.5px; color: var(--text-dim); margin-bottom: 18px; }
+  .tag{
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    background: var(--amber-dim);
+    padding: 4px 10px;
+    border-radius: 5px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .card:hover .tag{ background: var(--amber); color: #F5F6FF; }
+
+  /* Projects */
+  .projects-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .project-card{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .project-card:hover{
+    border-color: var(--border-strong);
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.45);
+  }
+  .project-thumb{
+    height: 180px;
+    background: linear-gradient(135deg, #5170FF 0%, #12172E 55%, #000000 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(245,246,255,0.75);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .project-thumb > *{ transition: transform 0.3s ease; }
+  .project-thumb img{ width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+  .project-card:hover .project-thumb{ filter: brightness(1.1); }
+  .project-card:hover .project-thumb img{ transform: scale(1.05); }
+  .project-info{ padding: 20px 22px; }
+  .project-tags{ display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .project-tags .tag{ color: var(--teal); background: var(--teal-dim); }
+  .project-info h3{ font-size: 17px; margin-bottom: 6px; transition: color 0.2s ease; }
+  .project-card:hover .project-info h3{ color: var(--teal); }
+  .project-info p{ font-size: 13.5px; color: var(--text-dim); margin-bottom: 14px; }
+  .project-link{ font-size: 13px; color: var(--amber); display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s ease, color 0.2s ease; }
+  .project-link:hover{ color: #6C85FF; gap: 10px; }
+
+  /* Why work with me */
+  .grid-3{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  /* Process */
+  .process-grid{ display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+  .process-step{ transition: transform 0.2s ease; }
+  .process-step:hover{ transform: translateY(-3px); }
+  .process-step .num{ font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--amber); margin-bottom: 14px; transition: color 0.2s ease; }
+  .process-step:hover .num{ color: var(--teal); }
+  .process-step h3{ font-size: 16px; margin-bottom: 8px; }
+  .process-step p{ font-size: 13.5px; color: var(--text-dim); }
+
+  /* Contact */
+  .contact-box{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .contact-box h2{ font-size: 28px; margin-bottom: 14px; }
+  .contact-box p{ color: var(--text-dim); font-size: 14.5px; max-width: 380px; }
+  .contact-box .async-line{ margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--teal); }
+  form{ display: flex; flex-direction: column; gap: 14px; }
+  .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  label{ font-size: 12px; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; margin-bottom: 6px; display: block; }
+  input, select, textarea{
+    width: 100%;
+    background: var(--navy-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 7px;
+    padding: 11px 13px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  input:hover, select:hover, textarea:hover{ border-color: var(--text-faint); }
+  input:focus, select:focus, textarea:focus{ border-color: var(--teal); }
+  textarea{ resize: vertical; min-height: 90px; }
+
+  /* Footer */
+  footer{
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+  }
+  .footer-row{
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-links{ display: flex; gap: 20px; }
+  .footer-links a{ font-size: 13px; color: var(--text-faint); }
+  .footer-links a:hover{ color: var(--teal); }
+  .copyright{ font-size: 12.5px; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; }
+
+  /* Responsive */
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .grid-3{ grid-template-columns: 1fr; }
+    .projects-grid{ grid-template-columns: 1fr; }
+    .contact-box{ grid-template-columns: 1fr; padding: 32px 24px; }
+    .nav-links, .nav-cta{ display: none; }
+    .nav-toggle{ display: flex; }
+    .mobile-menu{ display: flex; }
+    .hero h1{ font-size: 32px; }
+
+    /* Simplify the hero mockup on mobile — less clutter, less vertical space */
+    .mockup-body{ padding: 22px 20px; }
+    .mockup-nav{ margin-bottom: 24px; }
+    .mockup-links{ display: none; }
+    .mockup-h1{ font-size: 21px; }
+    .mockup-p{ font-size: 12.5px; max-width: none; }
+    .mockup-note{ font-size: 10px; }
+  }
+
+  @media (max-width: 480px){
+    .hero-ctas{ flex-wrap: wrap; }
+    .hero-trust{ flex-wrap: wrap; gap: 14px 20px; }
+
+    /* Keep the mockup visible but tightened for small phones */
+    .mockup-bar{ padding: 10px 12px; }
+    .mockup-url{ font-size: 11px; padding: 4px 10px; }
+    .dot{ width: 8px; height: 8px; }
+    .mockup-body{ padding: 18px 16px; }
+    .mockup-nav{ margin-bottom: 20px; }
+    .mockup-brand{ font-size: 12px; }
+    .mockup-h1{ font-size: 18px; margin-bottom: 10px; }
+    .mockup-p{ font-size: 12px; margin-bottom: 18px; }
+    .mockup-btn{ padding: 9px 16px; font-size: 12px; }
+    .mockup-note{ font-size: 9.5px; margin-top: 14px; }
+    .mockup-glow{ height: 50px; bottom: -16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ transition: none !important; animation: none !important; }
+  }
+
+  :focus-visible{ outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  /* Component styles moved out of inline HTML */
+  .nav-cta-btn{ padding: 10px 20px; font-size: 13px; }
+  .thumb-img-phinclub{ object-position: center 42%; }
+  .botcheck-field{ display: none; }
+  .submit-btn{ margin-top: 6px; }
+  .form-status{
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-top: 4px;
+    display: none;
+  }
+  .form-status.visible{ display: block; }
+  .form-status.success{ color: var(--teal); }
+  .form-status.error{ color: #E24B4A; }
+  .footer-logo{ font-size: 15px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo">Code<span>Hiro</span></a>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-primary nav-cta-btn">Start a project</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="burger"></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+      <div class="mobile-menu-ctas">
+        <a href="#contact" class="btn btn-primary">Start a project</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">codehiro.dev</div>
+        <h1>Websites that <span class="accent">convert</span>, built for small business.</h1>
+        <p class="sub">Freelance frontend developer building fast, conversion-focused websites for gyms, cafés, resorts, and local brands — no agency layers, no calls required.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Start a project</a>
+          <a href="#work" class="btn btn-ghost">View work</a>
+        </div>
+        <div class="hero-trust">
+          <div><span>Solo</span>-built, no agency layers</div>
+          <div><span>100%</span> async workflow</div>
+          <div><span>&lt;24h</span> reply time</div>
+        </div>
+      </div>
+
+      <div class="mockup-wrap">
+        <div class="mockup-glow"></div>
+        <div class="mockup">
+        <div class="mockup-bar">
+          <div class="dot red"></div>
+          <div class="dot amber"></div>
+          <div class="dot teal"></div>
+          <div class="mockup-url mono">yourbusiness.com</div>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-nav">
+            <div class="mockup-brand">YOURBRAND</div>
+            <div class="mockup-links">
+              <span>Home</span><span>About</span><span>Contact</span>
+            </div>
+          </div>
+          <div class="mockup-h1">Built for your business.</div>
+          <p class="mockup-p">Fast, mobile-friendly, and easy for you to update yourself.</p>
+          <button class="mockup-btn" id="mockupBtn">Get started</button>
+          <div class="mockup-note">
+            <span class="note-hover">Hover the button</span><span class="note-tap">Tap the button</span> <span class="emphasis">— that's a live site, not a screenshot.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">01 — Services</div>
+        <h2>Technical solutions</h2>
+      </div>
+      <div class="grid-4">
+        <div class="card">
+          <div class="card-icon">◧</div>
+          <h3>Landing pages</h3>
+          <p>High-converting, single-page websites optimized for speed and clarity, built in matter of days.</p>
+          <span class="tag">HTML/CSS/JS</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">◨</div>
+          <h3>Business websites</h3>
+          <p>Multi-page sites built to bring in your local or regional market, with room to grow.</p>
+          <span class="tag">Vercel / Netlify</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">◩</div>
+          <h3>Backend & forms</h3>
+          <p>Secure data handling, contact forms, and lightweight database integrations that just work.</p>
+          <span class="tag">Supabase</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">◪</div>
+          <h3>Automation</h3>
+          <p>Connecting your website to WhatsApp, booking tools, and simple workflow automations.</p>
+          <span class="tag">n8n / Make</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">02 — Selected work</div>
+        <h2>Recent projects</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-thumb">[ project preview ]</div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">HTML/CSS/JS</span>
+              <span class="tag">Fraunces</span>
+            </div>
+            <h3>Karma Fitness</h3>
+            <p>Premium gym landing page with real facility content and client testimonials.</p>
+            <a href="#" class="project-link">View project →</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb">[ project preview ]</div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">HTML/CSS/JS</span>
+              <span class="tag">Anton</span>
+            </div>
+            <h3>TriFit</h3>
+            <p>Dark, poster-style brand site built for a high-energy fitness studio.</p>
+            <a href="#" class="project-link">View project →</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb">[ project preview ]</div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Formspree</span>
+              <span class="tag">Design tokens</span>
+            </div>
+            <h3>The Modern Hearth</h3>
+            <p>Warm, editorial café site with a custom design token system.</p>
+            <a href="#" class="project-link">View project →</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb">[ project preview ]</div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Front-end only</span>
+              <span class="tag">Fraunces</span>
+            </div>
+            <h3>SÈVE Skincare</h3>
+            <p>Pre-launch email capture page with botanical animation and earth tones.</p>
+            <a href="#" class="project-link">View project →</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb">
+            <img src="assets/phinclub-preview.png" alt="Phin Club café website shown across laptop, tablet, and phone mockups" class="thumb-img-phinclub">
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">HTML/CSS/JS</span>
+              <span class="tag">Netlify</span>
+            </div>
+            <h3>Phin Club</h3>
+            <p>Café landing page built and deployed live for a coffee brand.</p>
+            <a href="https://phinclub.netlify.app/" class="project-link" target="_blank" rel="noopener">View project →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY WORK WITH ME -->
+  <section id="why">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">03 — Why work with me</div>
+        <h2>Built for how you actually run a business</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">✓</div>
+          <h3>Async, no calls</h3>
+          <p>Everything happens over text. Send a message whenever it's convenient — no scheduling, no meetings.</p>
+          <span class="tag">Text-only</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Fast turnaround</h3>
+          <p>Small business sites move quickly — most landing pages ship within days, not months.</p>
+          <span class="tag">Days, not weeks</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">→</div>
+          <h3>Direct access</h3>
+          <p>You work with the person actually building your site — no account managers, no middlemen.</p>
+          <span class="tag">1:1</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">04 — Process</div>
+        <h2>How I work</h2>
+      </div>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="num mono">01</div>
+          <h3>Discover</h3>
+          <p>Understand your goals, audience, and what your business actually needs.</p>
+        </div>
+        <div class="process-step">
+          <div class="num mono">02</div>
+          <h3>Design</h3>
+          <p>Draft a layout that fits your brand and how your customers browse.</p>
+        </div>
+        <div class="process-step">
+          <div class="num mono">03</div>
+          <h3>Build</h3>
+          <p>Develop a fast, responsive site optimized for real-world use.</p>
+        </div>
+        <div class="process-step">
+          <div class="num mono">04</div>
+          <h3>Launch</h3>
+          <p>Ship it live, handle any last details, and hand it off to you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <div class="eyebrow">05 — Contact</div>
+          <h2>Ready to start?</h2>
+          <p>Fill in the form and I'll get back to you within a day. No calls needed.</p>
+          <div class="async-line">// prefers-async: true</div>
+        </div>
+        <form id="contactForm">
+          <input type="hidden" name="access_key" value="3cc967cd-5691-4df6-a3aa-ea07fcb91fc1">
+          <input type="hidden" name="subject" value="New project inquiry — CodeHiro site">
+          <input type="checkbox" name="botcheck" class="botcheck-field" tabindex="-1" autocomplete="off">
+          <div class="form-row">
+            <div>
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" placeholder="Jane Doe" required>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="jane@business.com" required>
+            </div>
+          </div>
+          <div>
+            <label for="type">Project type</label>
+            <select id="type" name="project_type">
+              <option>Landing page</option>
+              <option>Business website</option>
+              <option>Automation / integration</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div>
+            <label for="message">Tell me about your project</label>
+            <textarea id="message" name="message" placeholder="What are you looking to build?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary submit-btn">Send message</button>
+          <p id="formStatus" class="form-status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="logo footer-logo">Code<span>Hiro</span></div>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/codehiro.dev/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="LinkedIn">LinkedIn</a>
+      <a href="#" aria-label="Fiverr">Fiverr</a>
+    </div>
+    <div class="copyright">© 2026 CodeHiro. Built with vanilla HTML/CSS/JS.</div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  // Mockup button: hover works on desktop via CSS. On touch devices, simulate
+  // the same "active" visual on tap since :hover never fires there.
+  const mockupBtn = document.getElementById('mockupBtn');
+  mockupBtn.addEventListener('touchstart', () => {
+    mockupBtn.classList.add('is-tapped');
+  }, { passive: true });
+  mockupBtn.addEventListener('touchend', () => {
+    setTimeout(() => mockupBtn.classList.remove('is-tapped'), 250);
+  }, { passive: true });
+  navToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+    navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open menu');
+    });
+  });
+
+  // Contact form: submits to Web3Forms (https://web3forms.com)
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+
+  contactForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const original = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    formStatus.classList.remove('visible', 'success', 'error');
+
+    try{
+      const formData = new FormData(contactForm);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        btn.textContent = 'Message sent';
+        formStatus.textContent = "Thanks — I'll get back to you within a day.";
+        formStatus.classList.add('visible', 'success');
+        contactForm.reset();
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (err) {
+      btn.textContent = 'Send message';
+      formStatus.textContent = 'Something went wrong — please email me directly instead.';
+      formStatus.classList.add('visible', 'error');
+    } finally {
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = original; }, 2200);
+    }
+  });
+</script>
+
+</body>
+</html>
