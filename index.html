@@ -7,7 +7,7 @@
 <meta name="description" content="Freelance frontend developer building fast, conversion-focused websites for small businesses.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy: #000000;
@@ -17,7 +17,7 @@
     --border-strong: #2A2D3D;
     --text: #E8E8E8;
     --text-dim: #9A9CAE;
-    --text-faint: #64667A;
+    --text-faint: #82849A;
     --amber: #5170FF;
     --amber-dim: #191E3D;
     --teal: #8DA0FF;
@@ -86,7 +86,8 @@
   /* Nav */
   header{
     position: sticky; top: 0; z-index: 50;
-    background: rgba(11,15,26,0.85);
+    background: rgba(0,0,0,0.85);
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
   }
@@ -469,7 +470,6 @@
 
   /* Component styles moved out of inline HTML */
   .nav-cta-btn{ padding: 10px 20px; font-size: 13px; }
-  .thumb-img-phinclub{ object-position: center 42%; }
   .botcheck-field{ display: none; }
   .submit-btn{ margin-top: 6px; }
   .form-status{
@@ -590,9 +590,9 @@
         </div>
         <div class="card">
           <div class="card-icon">◪</div>
-          <h3>Automation</h3>
-          <p>Connecting your website to WhatsApp, booking tools, and simple workflow automations.</p>
-          <span class="tag">n8n / Make</span>
+          <h3>Website audit</h3>
+          <p>A free plain-English checkup of your current site's speed, mobile-friendliness, and what's costing you visitors.</p>
+          <span class="tag">PageSpeed API</span>
         </div>
       </div>
     </div>
@@ -607,56 +607,22 @@
       </div>
       <div class="projects-grid">
         <div class="project-card">
-          <div class="project-thumb">[ project preview ]</div>
+          <div class="project-thumb">
+            <img src="assets/codehiro-audit.webp" alt="CodeHiro Audit tool homepage" width="1000" height="562" loading="lazy" decoding="async">
+          </div>
           <div class="project-info">
             <div class="project-tags">
               <span class="tag">HTML/CSS/JS</span>
-              <span class="tag">Fraunces</span>
+              <span class="tag">PageSpeed API</span>
             </div>
-            <h3>Karma Fitness</h3>
-            <p>Premium gym landing page with real facility content and client testimonials.</p>
-            <a href="#" class="project-link">View project →</a>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-thumb">[ project preview ]</div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">HTML/CSS/JS</span>
-              <span class="tag">Anton</span>
-            </div>
-            <h3>TriFit</h3>
-            <p>Dark, poster-style brand site built for a high-energy fitness studio.</p>
-            <a href="#" class="project-link">View project →</a>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-thumb">[ project preview ]</div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Formspree</span>
-              <span class="tag">Design tokens</span>
-            </div>
-            <h3>The Modern Hearth</h3>
-            <p>Warm, editorial café site with a custom design token system.</p>
-            <a href="#" class="project-link">View project →</a>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-thumb">[ project preview ]</div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Front-end only</span>
-              <span class="tag">Fraunces</span>
-            </div>
-            <h3>SÈVE Skincare</h3>
-            <p>Pre-launch email capture page with botanical animation and earth tones.</p>
-            <a href="#" class="project-link">View project →</a>
+            <h3>CodeHiro Audit</h3>
+            <p>Free website vitals checkup tool — paste a link, get a plain-English performance report.</p>
+            <a href="https://codehiro-audit.netlify.app/" class="project-link" target="_blank" rel="noopener">View project →</a>
           </div>
         </div>
         <div class="project-card">
           <div class="project-thumb">
-            <img src="assets/phinclub-preview.png" alt="Phin Club café website shown across laptop, tablet, and phone mockups" class="thumb-img-phinclub">
+            <img src="assets/phinclub.webp" alt="Phin Club café website homepage" width="1000" height="567" loading="lazy" decoding="async">
           </div>
           <div class="project-info">
             <div class="project-tags">
@@ -666,6 +632,48 @@
             <h3>Phin Club</h3>
             <p>Café landing page built and deployed live for a coffee brand.</p>
             <a href="https://phinclub.netlify.app/" class="project-link" target="_blank" rel="noopener">View project →</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb">
+            <img src="assets/forge.webp" alt="FORGE gym website homepage" width="1000" height="566" loading="lazy" decoding="async">
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">HTML/CSS/JS</span>
+              <span class="tag">Netlify</span>
+            </div>
+            <h3>FORGE</h3>
+            <p>Scroll-driven gym landing page with bold, high-energy brand presence.</p>
+            <a href="https://f0rgegym.netlify.app/" class="project-link" target="_blank" rel="noopener">View project →</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb">
+            <img src="assets/seve-skincare.webp" alt="SÈVE skincare pre-launch landing page" width="1000" height="567" loading="lazy" decoding="async">
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Front-end only</span>
+              <span class="tag">Fraunces</span>
+            </div>
+            <h3>SÈVE Skincare</h3>
+            <p>Pre-launch email capture page with botanical animation and earth tones.</p>
+            <a href="https://seve-thefirstdrop.netlify.app/" class="project-link" target="_blank" rel="noopener">View project →</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb">
+            <img src="assets/interior-design.webp" alt="Custom Design Interiors website homepage" width="1000" height="567" loading="lazy" decoding="async">
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">HTML/CSS/JS</span>
+              <span class="tag">Netlify</span>
+            </div>
+            <h3>Custom Design Interiors</h3>
+            <p>Premium interior design studio site with consultation booking and portfolio showcase.</p>
+            <a href="https://fluffy-figolla-1bd87e.netlify.app/" class="project-link" target="_blank" rel="noopener">View project →</a>
           </div>
         </div>
       </div>
@@ -785,8 +793,8 @@
     <div class="logo footer-logo">Code<span>Hiro</span></div>
     <div class="footer-links">
       <a href="https://www.instagram.com/codehiro.dev/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
-      <a href="#" aria-label="LinkedIn">LinkedIn</a>
-      <a href="#" aria-label="Fiverr">Fiverr</a>
+      <a href="https://github.com/himadriroy1310-tech" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+      <a href="https://www.linkedin.com/in/himadri-roy-a08334391/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
     </div>
     <div class="copyright">© 2026 CodeHiro. Built with vanilla HTML/CSS/JS.</div>
   </div>
