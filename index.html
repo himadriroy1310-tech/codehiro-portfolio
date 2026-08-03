@@ -7,7 +7,9 @@
 <meta name="description" content="Freelance frontend developer building fast, conversion-focused websites for small businesses.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"></noscript>
 <style>
   :root{
     --navy: #000000;
@@ -19,7 +21,7 @@
     --text-dim: #9A9CAE;
     --text-faint: #82849A;
     --amber: #5170FF;
-    --amber-dim: #191E3D;
+    --amber-dim: #0A0C1A;
     --teal: #8DA0FF;
     --teal-dim: #14172E;
     --radius: 10px;
@@ -74,7 +76,7 @@
     white-space: nowrap;
   }
   .btn:active{ transform: translateY(-2px) scale(0.98); }
-  .btn-primary{ background: var(--amber); color: #F5F6FF; }
+  .btn-primary{ background: #3D5AE0; color: #F5F6FF; }
   .btn-primary:active{ background: #6C85FF; box-shadow: 0 8px 24px rgba(81,112,255,0.35); }
   .btn-ghost{ background: transparent; color: var(--text); border-color: var(--border-strong); }
   .btn-ghost:active{ border-color: var(--teal); color: var(--teal); background: rgba(81,112,255,0.08); }
@@ -250,7 +252,7 @@
   .mockup-p{ font-size: 13px; color: var(--text-dim); margin-bottom: 24px; max-width: 300px; }
   .mockup-btn{
     display: inline-block;
-    background: var(--amber);
+    background: #3D5AE0;
     color: #F5F6FF;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -325,7 +327,7 @@
     border-radius: 5px;
     transition: background 0.2s ease, color 0.2s ease;
   }
-  .card:hover .tag{ background: var(--amber); color: #F5F6FF; }
+  .card:hover .tag{ background: #3D5AE0; color: #F5F6FF; }
 
   /* Projects */
   .projects-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
